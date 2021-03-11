@@ -61,3 +61,9 @@ U
 %resources/views/post/create.blade.php,6\1\618fc67bc6c0382c9c0ebb0e124942e38d11ad4e
 S
 #resources/views/post/edit.blade.php,b\2\b2d70eeac75a1ea7c611bcf6841b6f59becf07df
+R
+"database/factories/UserFactory.php,3\4\3401747fc769758d97931473eab6222bc2abf009
+R
+"database/factories/PostFactory.php,d\f\df28ea2ba2789dbce6b4631641525d02ff7b23b4
+S
+#resources/views/post/show.blade.php,7\6\7605636e1f16e60db7996e93d8f75f1c78334847

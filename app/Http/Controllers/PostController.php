@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\Models\Post;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -20,7 +21,7 @@ class PostController extends Controller
 
     public function create()
     {
-            return view('post.edit');
+            return view('post.edit' );
     }
 
     public function store(Request $request)
@@ -36,7 +37,7 @@ class PostController extends Controller
 
         $post = Post::create([
             'title' => $request->title,
-            'content' => $request->content,
+            'content' => $request['content'],
             'user_id' => auth()->user()->id
         ]);
 
@@ -50,8 +51,10 @@ class PostController extends Controller
         return view('post.edit', ['post' => $post]);
     }
 
-    public function update(Post $post, Request $request)
+    public function update(Request $request, $id )
     {
+
+        Post::find($id)->update($request->post());
         return redirect()->route('post.index');
     }
 
@@ -60,6 +63,14 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('post.index');
+    }
+
+    public function show(Post $post){
+
+        $post = Post::with('user')->find($post->id);
+
+
+        return view('post.show', compact('post'));
     }
 
 }

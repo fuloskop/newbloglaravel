@@ -15,29 +15,6 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        Post::create([
-            'user_id' => random_int(1,1) ,
-            'title' =>  Str::random(32),
-            'content' =>  Str::random(32)
-        ]);
-        Post::create([
-            'user_id' => random_int(1,1) ,
-            'title' =>  Str::random(32),
-            'content' =>  Str::random(32)
-        ]);
-        Post::create([
-            'user_id' => random_int(1,1) ,
-            'title' =>  Str::random(32),
-            'content' =>  Str::random(32)
-        ]);
-        Post::create([
-            'user_id' => random_int(1,1) ,
-            'title' =>  Str::random(32),
-            'content' =>  Str::random(32)
-        ]);Post::create([
-        'user_id' => random_int(1,1) ,
-        'title' =>  Str::random(32),
-        'content' =>  Str::random(32)
-    ]);
+        \App\Models\Post::factory(20)->create();
     }
 }

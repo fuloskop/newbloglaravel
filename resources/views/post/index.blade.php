@@ -7,16 +7,16 @@
 
 <div>
     @foreach($posts as $post)
-        <div class="card">
-            <div class="card-body">
-                <div class="card-title border ">
-                    <h5>{{ $post->title }}</h5>
+        <div class="card p-2 m-2">
+            <div class="card-body p-2">
+                <div class="card-title  ">
+                    <h5><a href="{{route('post.show',$post->id)}} ">{{ $post->title }}</a></h5>
                 </div>
 
-                <p class="card-text border ">{{ $post->content }}</p>
+                <p class="card-text ">{!!   strlen($post->content)<100 ? $post->content : (substr($post->content, 0, 300)."...<a href =".route('post.show',$post->id)."> Devamını oku </a>") !!}</p>
                 <div class="w3-bar">
-                @if(isset(Auth::user()->email))
-                    @if((int)Auth::user()->id == (int)$post->user_id)
+                @if(Auth::check())
+                    @if(Auth::user()->id ==$post->user_id)
                     <form action="{{ route('post.edit',['post' => $post])  }}" style="display: inline;" >
                         @csrf
                         @method('edit')

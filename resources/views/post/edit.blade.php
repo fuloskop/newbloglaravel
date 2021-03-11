@@ -10,9 +10,11 @@
     <div>
 
         <div class="panel-body">
-            <form class="form-horizontal" role="form" method="POST" action="{{route('post.store') }}">
+            <form class="form-horizontal" role="form" method="POST" action="{{ isset($post) ?  route('post.update',$post->id)  : route('post.store') }}">
                 @csrf
-
+                @if(isset($post))
+                    @method('PUT')
+                @endif
                 <div>
                     <label for="username" class="col-md-4 control-label" name="username">Hello, {{Auth::user()->username}}</label>
                 </div>
