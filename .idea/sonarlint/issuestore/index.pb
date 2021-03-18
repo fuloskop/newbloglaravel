@@ -67,3 +67,9 @@ R
 "database/factories/PostFactory.php,d\f\df28ea2ba2789dbce6b4631641525d02ff7b23b4
 S
 #resources/views/post/show.blade.php,7\6\7605636e1f16e60db7996e93d8f75f1c78334847
+B
+routes/console.php,d\d\dd5f3b20dd4fb12b39d7a3a0a5e1160fcceeb8c5
+Q
+!resources/views/profile.blade.php,c\e\ce39817f060740fda2bb0924fbea6bb5cf6252e7
+Z
+*app/Http/Controllers/ProfileController.php,4\b\4b193d2b186848767db94db99ce44bb1ac5f832d

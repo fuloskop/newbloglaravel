@@ -30,7 +30,7 @@
                 </li>
             </ul>
             @if(isset(Auth::user()->email))
-                    <a class="nav-link" href="#">Merhaba {{Auth::user()->username}} </a>
+                    <a class="nav-link" href="{{route('profile.index')}}">Merhaba {{Auth::user()->username}} </a>
 
                     <a class="nav-link" href="{{url('/login/logout')}}">Çıkış yap</a>
 
