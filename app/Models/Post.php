@@ -15,6 +15,6 @@ class Post extends Model
     // $post->user => User Model
     public function User()
     {// 'App\Models\User'
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);// git push test
     }
 }
