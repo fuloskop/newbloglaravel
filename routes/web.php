@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,15 +24,28 @@ Route::get('/layouts', function () {
 
 Route::get('/test','Tester@test');
 
-Route::get('/login','LoginController@index')->name('login');
+Route::get('/login','LoginController@index')->name('login')->middleware('guest');
 Route::post('/login/checklogin','LoginController@checklogin');
 Route::get('/login/successlogin','LoginController@successlogin');
 Route::get('/login/logout','LoginController@logout');
 
-Route::get('/register','RegisterController@index')->name('register.index');
+Route::get('/register','RegisterController@index')->name('register.index')->middleware('guest');
 Route::post('/register/checkregister','RegisterController@checkregister');
 
 Route::get('/profile','ProfileController@index')->name('profile.index')->middleware('auth');
 Route::post('/profile/changepass','ProfileController@changepass')->name('profile.changepass')->middleware('auth');
+Route::post('/profile/changeavatar','ProfileController@changeavatar')->name('profile.changeavatar')->middleware('auth');
+Route::get('/profile/deleteavatar','ProfileController@deleteavatar')->name('profile.deleteavatar')->middleware('auth');
+
+//Route::get('/login/forgot','LoginController@forgot')->name('login.forgot')->middleware('guest');
+
+Route::get('/forgot-password','LoginController@passforgot')->middleware('guest')->name('password.request');
+
+Route::post('/forgot-password', 'LoginController@passforgotwithrequest')->middleware('guest')->name('password.email');
+
+Route::get('/reset-password/{token}', 'LoginController@passresetwithtoken')->middleware('guest')->name('password.reset');
+
+Route::post('/reset-password', 'LoginController@passreset')->middleware('guest')->name('password.update');
+
 
 Route::get('/','PostController@index');

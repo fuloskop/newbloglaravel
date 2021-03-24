@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -20,6 +21,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'avatar_adress',
     ];
 
     /**
@@ -40,4 +42,48 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function post(){
+        return $this->hasMany(Post::class);
+    }
+
+    public function checklastpass($newpassword)
+    {
+        $userlarspass = UserLastPass::where('user_id', $this->id )->get();
+        if(count($userlarspass)==0){  //ilk sifre degisimi
+            $newuserlarspass = new UserLastPass;
+            $newuserlarspass->user_id = $this->id;
+            $newuserlarspass->password = Hash::make($newpassword);
+            $newuserlarspass->save();
+            return false;
+        }
+        else{
+            $sorunyok=true;
+            foreach ($userlarspass as $data){
+                if(Hash::check($newpassword,$data->password)){
+                    $sorunyok=false;
+                }
+            }
+            if($sorunyok){
+                $newuserlarspass = new UserLastPass;
+                $newuserlarspass->user_id = $this->id;
+                $newuserlarspass->password = Hash::make($newpassword);
+                $newuserlarspass->save();
+                if(count($userlarspass)>2){
+                    $firstuserlarspass = UserLastPass::where('user_id', $this->id )->first();
+                    $firstuserlarspass->delete();
+                }
+                return false;
+            }
+            else{
+                return true;
+            }
+
+
+        }
+
+
+        return $userlarspass;
+    }
+
 }

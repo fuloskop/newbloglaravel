@@ -2,14 +2,52 @@
 
 
 @section('content')
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="jumbotron">
+
+        <h3 class="display-4">Avatar İşlemleri</h3>
+
+        <form action="{{route('profile.changeavatar')}}" method="POST" enctype="multipart/form-data" >
+            @csrf
+
+            @if($user->avatar_adress!=null)
+                <div class="mb-3    ">
+                <img src="http://127.0.0.1:8000/images/{{$user->avatar_adress}}"  width="80" height="80">
+                    <a href="{{route('profile.deleteavatar')}}" class="btn btn-danger">Foto Sil</a>
+                </div>
+            @endif
+            <div class="custom-file mb-3">
+                <input type="file" class="custom-file-input" id="input_img" name="input_img">
+                <label class="custom-file-label" for="input_img">Dosya Seç</label>
+            </div>
+            @if(session()->has('success_avatar'))
+                <div class="alert alert-success">
+                    {{ session()->get('success_avatar') }}
+                </div>
+            @endif
+            <span id='messagefile'></span>
+            <div class="mt-3">
+                <button type="submit" id="submitfile" class="btn btn-primary btn-lg col-sm-2">Avatar Değiştir</button>
+            </div>
+        </form>
+
+        <hr class="my-4">
+
         <h3 class="display-4">Şifre İşlemleri</h3>
 
 
 
         <form method="POST" action="{{route('profile.changepass')}}" >
-        <div class="row">
+        <div class="row ">
             <div class="col-sm-2 lead">Şifre değişimi : </div>
             @csrf
         <div class="col-sm-8">
@@ -19,28 +57,59 @@
             <label class="lead" for="password">Yeni Şifre:</label>
             <input type="password" class="form-control" id="password" name="password" onkeyup='check();'>
 
-            <label class="lead" for="password_confirm">Yeni Şifre Tekrar:</label>
-            <input type="password" class="form-control" id="password_confirm" name="password_confirm" onkeyup='check();'>
+            <label class="lead" for="password_confirmation">Yeni Şifre Tekrar:</label>
+            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" onkeyup='check();'>
             <span id='message'></span>
-            @if ($message = Session::get('error'))
-                <div class="text-center w-full p-t-23">
-                    <a href="#" class="txt1">
-                        {{Session::get('msg')}}
-                    </a>
+        </div>
+
+            <div class="blockquote-footer m-2">
+                Last update
+                    {{\Carbon\Carbon::parse($user->updated_at)->diffForHumans() }}
+
+            </div>
+            @if(session()->has('success_pass'))
+                <div class="alert alert-success">
+                    {{ session()->get('success_pass') }}
                 </div>
             @endif
-        </div>
         <hr class="my-4">
-            <input class="btn btn-primary btn-lg col-sm-2" type="submit" id="submit" value="Şifre Güncelle" >
         </div>
-        </form>
+            <div class="d-flex justify-content-between">
+            <input class="btn btn-primary btn-lg col-sm-2" type="submit" id="submit" value="Şifre Güncelle" >
+
+
+            </div>
+    </form>
 
     </div>
+    <script>
+        $('#input_img').bind('change', function() {
+            if(this.files[0].size>5368709){
+                document.getElementById("submitfile").disabled = true;
+                document.getElementById('messagefile').innerHTML = 'Boyut bu işlem için çok büyük...';
+            }
+            else{
+                document.getElementById("submitfile").disabled = false;
+                document.getElementById('messagefile').innerHTML = '';
+            }
+        });
+
+    </script>
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
+
+    </script>
 
     <script>
+
         var check = function() {
             if (document.getElementById('password').value ==
-                document.getElementById('password_confirm').value) {
+                document.getElementById('password_confirmation').value) {
                 document.getElementById('message').style.color = 'green';
                 document.getElementById('message').innerHTML = 'matching';
                 document.getElementById("submit").disabled = false;

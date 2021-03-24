@@ -2,11 +2,7 @@
 
 
 @section('content')
-    @if(!isset(Auth::user()->username))
-        <script>
-            window.location="../post";
-        </script>
-    @endif
+
     <div>
         <div class="card" >
             <div class="card-body">
@@ -15,7 +11,10 @@
                 <p class="card-text">{{$post->content}}</p>
 
                 <div class="card-footer">
-                    <p>Created By {{ $post->user->username }} at {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans()}}</p>
+
+                    <p>@if($post->user->avatar_adress!=null)
+                            <img src="http://127.0.0.1:8000/images/{{$post->user->avatar_adress}}"  width="35" height="35">
+                        @endif Created By <strong> {{ $post->user->username }}</strong> at {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans()}}</p>
                 </div>
             </div>
         </div>
