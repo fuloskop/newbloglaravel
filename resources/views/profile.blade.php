@@ -14,20 +14,23 @@
 
     <div class="jumbotron">
 
-        <h3 class="display-4">Avatar İşlemleri</h3>
+        <h5 class="display-5">Avatar İşlemleri</h5>
 
         <form action="{{route('profile.changeavatar')}}" method="POST" enctype="multipart/form-data" >
             @csrf
 
             @if($user->avatar_adress!=null)
-                <div class="mb-3    ">
-                <img src="http://127.0.0.1:8000/images/{{$user->avatar_adress}}"  width="80" height="80">
+                <div class="mb-3">
+                    <a href="http://127.0.0.1:8000/images/{{$user->avatar_adress}}">
+                        <img src="http://127.0.0.1:8000/images/{{$user->avatar_adress}}" width="80" height="80">
+                    </a>
+
                     <a href="{{route('profile.deleteavatar')}}" class="btn btn-danger">Foto Sil</a>
                 </div>
             @endif
             <div class="custom-file mb-3">
                 <input type="file" class="custom-file-input" id="input_img" name="input_img">
-                <label class="custom-file-label" for="input_img">Dosya Seç</label>
+                <label class="custom-file-label" for="input_img">Dosya Seç (JPEG,PNG,JPG,GIF)</label>
             </div>
             @if(session()->has('success_avatar'))
                 <div class="alert alert-success">
@@ -42,7 +45,7 @@
 
         <hr class="my-4">
 
-        <h3 class="display-4">Şifre İşlemleri</h3>
+        <h5 class="display-5">Şifre İşlemleri</h5>
 
 
 
@@ -59,10 +62,10 @@
 
             <label class="lead" for="password_confirmation">Yeni Şifre Tekrar:</label>
             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" onkeyup='check();'>
-            <span id='message'></span>
+            <span id='messagepass'></span>
         </div>
 
-            <div class="blockquote-footer m-2">
+            <div class="blockquote-footer m-3">
                 Last update
                     {{\Carbon\Carbon::parse($user->updated_at)->diffForHumans() }}
 
@@ -72,14 +75,14 @@
                     {{ session()->get('success_pass') }}
                 </div>
             @endif
-        <hr class="my-4">
+
         </div>
             <div class="d-flex justify-content-between">
             <input class="btn btn-primary btn-lg col-sm-2" type="submit" id="submit" value="Şifre Güncelle" >
 
-
             </div>
     </form>
+        <hr class="my-4">
 
     </div>
     <script>
@@ -110,12 +113,12 @@
         var check = function() {
             if (document.getElementById('password').value ==
                 document.getElementById('password_confirmation').value) {
-                document.getElementById('message').style.color = 'green';
-                document.getElementById('message').innerHTML = 'matching';
+                document.getElementById('messagepass').style.color = 'green';
+                document.getElementById('messagepass').innerHTML = 'matching';
                 document.getElementById("submit").disabled = false;
             } else {
-                document.getElementById('message').style.color = 'red';
-                document.getElementById('message').innerHTML = 'not matching';
+                document.getElementById('messagepass').style.color = 'red';
+                document.getElementById('messagepass').innerHTML = 'not matching';
                 document.getElementById("submit").disabled = true;
             }
         }

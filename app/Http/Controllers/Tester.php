@@ -3,21 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use DB;
+use App\Models\Post;
 
 class Tester extends Controller
 {
-    public function test()
+    public function test(Request $request)
     {
-        try {
-            $testdata = DB::select('select password from users where name = ?', ['fuloskop']);
-        }catch (QueryException $e) {
-            //var_dump($e->getMessage())
-            $testdata = $e->getMessage();
-            }
+        $test = $request->all();
+        return Post::find($test);
 
-
-        return view('WriteTest' , ['testdata' => $testdata]);
     }
 }

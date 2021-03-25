@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/post', 'PostController');
 
+Route::post('/post/{post}/create','CommentController@create');
+
 
 Route::get('/layouts', function () {
     return view('layouts');
@@ -46,6 +48,10 @@ Route::post('/forgot-password', 'LoginController@passforgotwithrequest')->middle
 Route::get('/reset-password/{token}', 'LoginController@passresetwithtoken')->middleware('guest')->name('password.reset');
 
 Route::post('/reset-password', 'LoginController@passreset')->middleware('guest')->name('password.update');
+
+Route::post('/ajax-request', 'PostLikeController@ChangeStatus');
+
+route::get('/getlikes/{id}','PostLikeController@GetLikes');
 
 
 Route::get('/','PostController@index');

@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['show']);
+    }
+
     public function index()
     {
         $posts = Post::orderByDesc('updated_at')->paginate(5);
@@ -68,6 +73,7 @@ class PostController extends Controller
     public function show(Post $post){
 
         $post = Post::with('user')->find($post->id);
+        //<return $post;
 
 
         return view('post.show', compact('post'));

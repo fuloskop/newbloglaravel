@@ -47,6 +47,10 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function postlike(){
+        return $this->hasMany(PostLike::class);
+    }
+
     public function checklastpass($newpassword)
     {
         $userlarspass = UserLastPass::where('user_id', $this->id )->get();

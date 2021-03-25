@@ -15,8 +15,9 @@ class LastPasswords extends Migration
     {
         Schema::create('LastPass', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->string('password');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -11,6 +11,22 @@ class Post extends Model
 
     protected $fillable = ['title', 'content', 'user_id'];
 
+    protected $appends = ['likes'];
+
+    public function getLikesAttribute(){
+        return [
+            'likes'=> $this->likes()->count() ,
+            'dislikes'=> $this->dislikes()->count()
+        ];
+
+    }
+
+    public function likes(){
+        return $this->hasMany('App\Models\PostLike')->where('status', '=',  'like');
+    }
+    public function dislikes(){
+        return $this->hasMany('App\Models\PostLike')->where('status', '=',  'dislike');
+    }
 
     // $post->user => User Model
     public function User()

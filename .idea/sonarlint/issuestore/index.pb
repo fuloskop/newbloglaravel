@@ -51,8 +51,6 @@ R
 +app/Http/Controllers/RegisterController.php,d\f\df88d3b4c73446ebf042b9b381a3f1e79fdab4c1
 U
 %database/seeders/PostsTableSeeder.php,a\3\a32ee3007ece817f2d7a5e0291100b86cb5ff8d6
-l
-<database/migrations/2021_02_18_121243_create_tasks_table.php,8\8\882f8787d25edec7f291b9a80a6c5fd2ffc061dd
 C
 app/Models/Post.php,3\1\3132c8d0c93e4f27578b5e39839067e47f3c07db
 Q
@@ -96,3 +94,19 @@ K
 .resources/views/auth/forgot-password.blade.php,3\3\339bc22966453017fd7ea31351bf30182117db3b
 ]
 -resources/views/auth/reset-password.blade.php,1\0\109b1959bcca16cfc6f020c2c5683d4d79a4f797
+V
+&database/factories/PostLikeFactory.php,4\4\44afdac47af3635ff8d8c4fa17355e997520c2e4
+O
+database/seeders/UserSeeder.php,9\a\9a5fbe4af4b23f69ef07f35a2d8a4d7c75c60797
+S
+#database/seeders/PostLikeSeeder.php,d\0\d044e9d090a0d97572a2d834c10f55540855dd32
+l
+<database/migrations/2021_03_24_102227_create_posts_table.php,3\5\35013953809b3677ab66630bfe20d132c2ebefa5
+c
+3database/migrations/2021_03_24_133722_post_like.php,9\c\9ce2457d5bf38f3f532f2aafaf1ac9e1a24adca1
+G
+app/Models/PostLike.php,2\9\29842f9185527a3c16ee2903091df32c507656c5
+A
+public/js/font.js,c\f\cf6b25529e37015882a40f7394e1f9edf4f84801
+[
++app/Http/Controllers/PostLikeController.php,8\d\8d46222a153dde03439ea6f3b67042bb20294bdb
