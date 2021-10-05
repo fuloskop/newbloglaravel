@@ -2,11 +2,6 @@
 
 
 @section('content')
-    @if(!isset(Auth::user()->username))
-        <script>
-            window.location="../post";
-        </script>
-    @endif
     <div>
 
         <div class="panel-body">
@@ -14,7 +9,8 @@
                 @csrf
 
                 <div>
-                    <label for="username" class="col-md-4 control-label" name="username">Hello asdasd, {{Auth::user()->username}}</label>
+                    <label for="username" class="col-md-4 control-label" name="username">Hello
+                        asdasd, {{Auth::user()->username}}</label>
                 </div>
 
                 <div>

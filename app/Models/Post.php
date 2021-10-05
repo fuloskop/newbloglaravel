@@ -33,4 +33,9 @@ class Post extends Model
     {// 'App\Models\User'
         return $this->belongsTo(User::class);// git push test
     }
+    // $post->user => Comment Model
+    public function comment(){
+        return $this->hasMany(Comment::class)->where('ifanswer_id', '=', null);
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use DB;
 use App\Models\Post;
 use http\Client\Curl\User;
@@ -26,7 +27,7 @@ class PostController extends Controller
 
     public function create()
     {
-            return view('post.edit' );
+        return view('post.edit');
     }
 
     public function store(Request $request)
@@ -56,9 +57,9 @@ class PostController extends Controller
         return view('post.edit', ['post' => $post]);
     }
 
-    public function update(Request $request, $id )
+    public function update(Request $request, $id)
     {
-
+        return $request->post();
         Post::find($id)->update($request->post());
         return redirect()->route('post.index');
     }
@@ -70,13 +71,18 @@ class PostController extends Controller
         return redirect()->route('post.index');
     }
 
-    public function show(Post $post){
+    public function show(Post $post)
+    {
 
-        $post = Post::with('user')->find($post->id);
+        $post = Post::with('user')->with('comment.user')->find($post->id);
+
+        $answercomment = Comment::getAllSortedByMake($post->id);
+
+        //$answercomment = $post->comment->where('ifanswer_id', '!=', null);
         //<return $post;
 
 
-        return view('post.show', compact('post'));
+        return view('post.show', compact('post', 'answercomment'));
     }
 
 }

@@ -40,6 +40,7 @@
 					</span>
 
                 <input name="token" value="{{$token}}" hidden>
+
                 <div class="wrap-input100 rs2 rs1 validate-input" style="width: 100%" data-validate = "email is required1">
                     <input class="input100" type="text" name="email" value="{{$email}}">
                     <span class="label-input100">E-mail</span>

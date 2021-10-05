@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\UserLastPass;
 use Illuminate\Support\Facades\Password;
 
+use Browser;
+
 use File;
 
 class ProfileController extends Controller
@@ -58,7 +60,18 @@ class ProfileController extends Controller
         //$user = User::find(Auth()->user());
         $user = Auth()->user();
 
-        return view('profile',compact('user'));
+        $devices = \DB::table('sessions')
+            ->where('user_id', \Auth::user()->id)
+            ->get()->sortByDesc('last_activity');
+
+        $result = [];
+        foreach ($devices as $device){
+            $result[] = Browser::parse($device->user_agent);
+        }
+
+        $current_session_id = \Session::getId();
+
+        return view('profile',compact('user','devices','result','current_session_id'));
     }
 
 

@@ -38,7 +38,8 @@ class LoginController extends Controller
             'password' => $request->get('password')
         );
 
-        if(Auth::attempt($userdata)){
+        if(auth()->attempt($userdata)){
+            //$request->session()->regenerate();
             return redirect ('login/successlogin');
         }
         else{
@@ -52,11 +53,11 @@ class LoginController extends Controller
         return redirect ('post');
     }
 
-    public function logout()
-    {
-        Auth::logout();
-        return redirect('login');
-    }
+        public function logout()
+        {
+            Auth::logout();
+            return redirect('login');
+        }
 
 
 
@@ -109,10 +110,16 @@ class LoginController extends Controller
                 event(new PasswordReset($user));
             }
         );
+        if($status == Password::PASSWORD_RESET){
+            \DB::table('sessions')
+                ->where('user_id', $user->id)
+                ->where('id', '!=', \Session::getId())->delete();
+            return redirect()->route('login')->with('status', __($status));
 
-        return $status == Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('status', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
+        }else{
+            return  back()->withErrors(['email' => [__($status)]]);
+        }
+
     }
     /*
         public function login(Request $request)

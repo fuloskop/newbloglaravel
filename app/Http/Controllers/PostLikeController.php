@@ -28,7 +28,7 @@ class PostLikeController extends Controller
         else{
             PostLike::create([
                 'post_id' => $request->post_id,
-                'user_id'=> $request->user_id,
+                'user_id'=> auth()->user()->id,
                 'status' => $request->status
             ]);
             return $this->GetLikes($request->post_id);
